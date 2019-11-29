@@ -11,6 +11,18 @@ function append(parent, el) {
   return parent.appendChild(el);
 }
 
+document.addEventListener("scroll", hideNavOnScroll);
+
+function hideNavOnScroll() {
+  let currentScrollPos = window.pageYOffset;
+  if (currentScrollPos > 0) {
+    document.getElementById("navbar").style.top = "-50px";
+  } else {
+    document.getElementById("navbar").style.top = "0";
+  }
+  currentScrollPos = 0;
+}
+
 const ul = document.getElementById("hotels");
 const url =
   "http://fake-hotel-api.herokuapp.com/api/hotels?count=10&no_error=true";
