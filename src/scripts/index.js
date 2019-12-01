@@ -99,3 +99,10 @@ function fetchData() {
 }
 
 fetchData();
+
+let showMore = document.getElementById("showMore");
+showMore.addEventListener("click", moreHotels);
+
+function moreHotels() {
+  fetchData();
+}
