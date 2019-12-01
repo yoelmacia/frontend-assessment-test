@@ -25,7 +25,7 @@ function hideNavOnScroll() {
 
 const ul = document.getElementById("hotels");
 const url =
-  "http://fake-hotel-api.herokuapp.com/api/hotels?count=10&no_error=true";
+  "http://fake-hotel-api.herokuapp.com/api/hotels?count=10&no_error=true&min_stars=3";
 const urlReviews = "http://fake-hotel-api.herokuapp.com/api/reviews?hotel_id=";
 
 function fetchData() {
