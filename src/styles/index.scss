@@ -62,6 +62,59 @@ body {
   font-size: 23px;
 }
 
+.divName,
+.divStars,
+.divCity,
+.divRating,
+.divPrice {
+  text-align: center;
+}
+
+.divName {
+  font-size: 19px;
+  font-weight: bold;
+}
+
+.divStars {
+  color: gold;
+  font-size: 20px;
+}
+
+.hr {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.hrPrice {
+  margin-top: 7px;
+  margin-bottom: 10px;
+}
+
+.divPrice {
+  font-weight: bolder;
+  color: #428500;
+  font-size: 28px;
+}
+
+.reviewsButton {
+  width: 145px;
+  height: 41px;
+  border: 1px solid #316300;
+  background-color: #428500;
+  cursor: pointer;
+  display: table;
+  margin: auto;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bolder;
+}
+
+.reviewsButton:hover {
+  color: #428500;
+  border-color: #316300;
+  background-color: white;
+}
+
 /* Mixins */
 
 @mixin backgroundAndShadow {

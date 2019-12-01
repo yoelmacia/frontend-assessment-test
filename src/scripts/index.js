@@ -40,15 +40,29 @@ function fetchData() {
           divPrice = createNodeWithClass("div", "divPrice"),
           divRating = createNodeWithClass("div", "divRating"),
           divStars = createNodeWithClass("div", "divStars"),
-          img = createNodeWithClass("img", "image");
+          img = createNodeWithClass("img", "image"),
+          hr = createNodeWithClass("hr", "hr"),
+          hrPrice = createNodeWithClass("hr", "hrPrice"),
+          reviews = createNodeWithClass("button", "reviewsButton");
 
-        divName.innerHTML = `Name: ${hotel.name}`;
-        divCity.innerHTML = `City: ${hotel.city}`;
+        divName.innerHTML = `${hotel.name}`;
+        divStars.innerHTML = `${
+          hotel.stars === 1
+            ? `&starf;`
+            : hotel.stars === 2
+            ? `&starf;&starf;`
+            : hotel.stars === 3
+            ? `&starf;&starf;&starf;`
+            : hotel.stars === 4
+            ? `&starf;&starf;&starf;&starf;`
+            : `&starf;&starf;&starf;&starf;&starf;`
+        }`;
+        divCity.innerHTML = `${hotel.city}`;
         divCountry.innerHTML = `Country : ${hotel.country}`;
         divDescription.innerHTML = `Description: ${hotel.description}`;
-        divPrice.innerHTML = `Price: ${hotel.price}`;
-        divRating.innerHTML = `Rating: ${hotel.rating}`;
-        divStars.innerHTML = `Stars: ${hotel.stars}`;
+        divPrice.innerHTML = `${hotel.price}€`;
+        reviews.innerHTML = `Read Reviews (12)`;
+        divRating.innerHTML = `${hotel.rating}`;
         img.src = `${hotel.images[0]}`;
         img.onerror = function() {
           img.src =
@@ -57,12 +71,12 @@ function fetchData() {
 
         append(li, img);
         append(li, divName);
-        append(li, divCity);
-        append(li, divCountry);
-        append(li, divDescription);
-        append(li, divPrice);
-        append(li, divRating);
         append(li, divStars);
+        append(li, divCity);
+        append(li, hr);
+        append(li, divPrice);
+        append(li, hrPrice);
+        append(li, reviews);
         append(ul, li);
       });
     })
