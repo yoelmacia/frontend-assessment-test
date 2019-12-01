@@ -26,6 +26,7 @@ function hideNavOnScroll() {
 const ul = document.getElementById("hotels");
 const url =
   "http://fake-hotel-api.herokuapp.com/api/hotels?count=10&no_error=true";
+const urlReviews = "http://fake-hotel-api.herokuapp.com/api/reviews?hotel_id=";
 
 function fetchData() {
   axios(url)
@@ -61,7 +62,19 @@ function fetchData() {
         divCountry.innerHTML = `Country : ${hotel.country}`;
         divDescription.innerHTML = `Description: ${hotel.description}`;
         divPrice.innerHTML = `${hotel.price}€`;
-        reviews.innerHTML = `Read Reviews (12)`;
+        axios(urlReviews + `${hotel.id}`)
+          .then(response => {
+            if (response.data.length === 0) {
+              reviews.style.cssText =
+                "pointer-events:none;background-color:#d7d7d7;border:1px solid black;color:black";
+              reviews.innerHTML = `No Reviews`;
+            } else {
+              reviews.innerHTML = `Read Reviews (${response.data.length})`;
+            }
+          })
+          .catch(error => {
+            console.log(error);
+          });
         divRating.innerHTML = `${hotel.rating}`;
         img.src = `${hotel.images[0]}`;
         img.onerror = function() {
