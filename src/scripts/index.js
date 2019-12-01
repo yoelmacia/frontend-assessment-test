@@ -50,6 +50,10 @@ function fetchData() {
         divRating.innerHTML = `Rating: ${hotel.rating}`;
         divStars.innerHTML = `Stars: ${hotel.stars}`;
         img.src = `${hotel.images[0]}`;
+        img.onerror = function() {
+          img.src =
+            "https://www.altayyaronline.com/contentserver/commons/hotel/en/not-found.png";
+        };
 
         append(li, img);
         append(li, divName);
