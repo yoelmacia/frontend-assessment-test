@@ -32,7 +32,8 @@ function fetchData() {
   axios(url)
     .then(response => {
       let hotels = response.data;
-      return hotels.map(hotel => {
+      let finalHotels = save(hotels);
+      return finalHotels.map(hotel => {
         let li = createNodeWithClass("li", "grid-item"),
           divName = createNodeWithClass("div", "divName"),
           divCity = createNodeWithClass("div", "divCity"),
@@ -198,4 +199,47 @@ function hotelReviews(reviews, modal, closeElement) {
       }
     });
   });
+}
+
+const filterLink = document.getElementById("filterLink");
+filterLink.addEventListener("click", closeFilter);
+
+function closeFilter() {
+  let editFilters = document.getElementById("editFilters");
+  let closeFilter = document.getElementById("closeFilter");
+
+  closeFilter.addEventListener("click", function() {
+    editFilters.style.cssText = "display:none";
+    document.body.style.cssText = "overflow:visible";
+  });
+
+  editFilters.style.cssText = "display: block;";
+  document.body.style.cssText = "overflow:hidden";
+}
+
+let final = [];
+function save(array) {
+  final.push(array);
+  let starSelect = document.getElementById("star-select");
+  let selection = starSelect.options[starSelect.selectedIndex].value;
+
+  let editFilters = document.getElementById("editFilters");
+  editFilters.style.cssText = "display:none";
+
+  if (selection === "") {
+    return final[0];
+  } else {
+    let stars = final[0].filter(element => {
+      return element.stars === parseInt(selection);
+    });
+    return stars;
+  }
+}
+
+const applyFilterButton = document.getElementById("apply-filters-button");
+applyFilterButton.addEventListener("click", applyfilter);
+
+function applyfilter() {
+  location.reload();
+  document.body.style.cssText = "overflow:visible";
 }

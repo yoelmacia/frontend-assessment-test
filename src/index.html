@@ -9,6 +9,26 @@
     <title>HolidayPirates Frontend test</title>
   </head>
   <body>
+    <div id="editFilters" class="editFilters">
+      <button id="closeFilter" class="closeFilter">X</button>
+      <span class="titleFilter">Filters</span>
+      <div class="div-star-select">
+        <label class="label-star-select" for="star-select"
+          >Number of Stars</label
+        >
+        <select class="star-select" name="stars" id="star-select">
+          <option selected value="">No filter</option>
+          <option value="3">&starf;&starf;&starf;</option>
+          <option value="4">&starf;&starf;&starf;&starf;</option>
+          <option value="5">&starf;&starf;&starf;&starf;&starf;</option>
+        </select>
+      </div>
+      <div class="apply-filters-div">
+        <button id="apply-filters-button" class="apply-filters-button">
+          Filter
+        </button>
+      </div>
+    </div>
     <div class="container">
       <nav class="navbar" id="navbar">
         <span class="navbar-text">Crew Holidays</span>
@@ -17,6 +37,11 @@
       <div class="show-more-div">
         <button class="show-more-button" id="showMore">Show More Hotels</button>
       </div>
+      <a class="filterLink" id="filterLink">
+        <footer class="footer">
+          <span class="footer-text">Filters &#8593;</span>
+        </footer>
+      </a>
     </div>
   </body>
 </html>
