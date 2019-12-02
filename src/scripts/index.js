@@ -74,7 +74,7 @@ function fetchData() {
               reviews.innerHTML = `Read Reviews (${response.data.length})`;
               // If the client click the review button show the modal and hide the normal view
               reviews.addEventListener("click", function() {
-                hotelReviews(hotel, response.data, modalReviews, closeReviews);
+                hotelReviews(response.data, modalReviews, closeReviews);
 
                 modalReviews.style.cssText = "display:block;position:relative;";
                 img.style.cssText = "display:none;";
@@ -137,36 +137,65 @@ function moreHotels() {
   fetchData();
 }
 
-function hotelReviews(hotel, reviews, modal, closeElement) {
+function hotelReviews(reviews, modal, closeElement) {
   closeElement.innerHTML = `X`;
   append(modal, closeElement);
 
-  if (hotel.id === reviews[0].hotel_id) {
-    // elements of the modal
-    let NumberOfreviews = createNodeWithClass("div", "numberReviews"),
-      hrAfterNumber = createNodeWithClass("hr", "hrAfterNumber");
+  // elements of the modal
+  let NumberOfreviews = createNodeWithClass("div", "numberReviews"),
+    hrAfterNumber = createNodeWithClass("hr", "hrAfterNumber");
 
-    NumberOfreviews.innerHTML = `Reviews ${reviews.length}`;
-    append(modal, NumberOfreviews);
-    checkReview = true;
-    append(modal, hrAfterNumber);
-    reviews.map(review => {
-      let nameReviewer = createNodeWithClass("div", "nameReviewer"),
-        comment = createNodeWithClass("div", "comment"),
-        positive = createNodeWithClass("div", "positive"),
-        hrComment = createNodeWithClass("hr", "hrComment");
+  NumberOfreviews.innerHTML = `Reviews ${reviews.length}`;
+  append(modal, NumberOfreviews);
+  append(modal, hrAfterNumber);
+  reviews.map(review => {
+    let nameReviewer = createNodeWithClass("div", "nameReviewer"),
+      comment = createNodeWithClass("div", "comment"),
+      positive = createNodeWithClass("div", "positive"),
+      hrComment = createNodeWithClass("hr", "hrComment");
 
-      nameReviewer.innerHTML = `&#9787; ${review.name}`;
-      comment.innerHTML = `&#9998; ${review.comment}`;
-      positive.innerHTML = `Positive review: ${
-        review.positive === true ? `&check;` : `&cross;`
-      }`;
-      append(modal, nameReviewer);
-      append(modal, comment);
-      append(modal, positive);
-      append(modal, hrComment);
+    nameReviewer.innerHTML = `&#9787; ${review.name}`;
+    comment.innerHTML = `&#9998; ${review.comment}`;
+    positive.innerHTML = `Review: ${
+      review.positive === true ? `&check;` : `&cross;`
+    }`;
+    append(modal, nameReviewer);
+    append(modal, comment);
+    append(modal, positive);
+    append(modal, hrComment);
+  });
+
+  closeElement.addEventListener("click", function() {
+    modal.removeChild(NumberOfreviews);
+    modal.removeChild(hrAfterNumber);
+
+    let childrenHrComment = modal.childNodes;
+    let nameReviewer = modal.childNodes;
+    let comment = modal.childNodes;
+    let positive = modal.childNodes;
+
+    nameReviewer.forEach(item => {
+      if (item.className === "nameReviewer") {
+        modal.removeChild(item);
+      }
     });
 
-    console.log(hotel, reviews, modal);
-  }
+    comment.forEach(item => {
+      if (item.className === "comment") {
+        modal.removeChild(item);
+      }
+    });
+
+    positive.forEach(item => {
+      if (item.className === "positive") {
+        modal.removeChild(item);
+      }
+    });
+
+    childrenHrComment.forEach(item => {
+      if (item.className === "hrComment") {
+        item.style.display = "none";
+      }
+    });
+  });
 }
