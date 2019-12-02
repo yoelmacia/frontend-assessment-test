@@ -240,6 +240,8 @@ body {
   margin: auto;
   font-family: "Pacifico", cursive;
   font-size: 60px;
+  top: 50px;
+  position: relative;
 }
 
 .div-star-select {
@@ -247,7 +249,7 @@ body {
   height: 50px;
   line-height: 50px;
   position: relative;
-  top: 200px;
+  top: 120px;
   margin: 0 auto;
   text-align: center;
 }
@@ -261,11 +263,12 @@ body {
 .star-select {
   width: 140px;
   height: 30px;
+  text-align: center;
 }
 
 .apply-filters-div {
   position: relative;
-  top: 400px;
+  top: 320px;
   width: 100%;
   height: 0px;
   text-align: center;
@@ -276,6 +279,30 @@ body {
   width: 180px;
   line-height: 50px;
   cursor: pointer;
+}
+
+.div-price-select {
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  position: relative;
+  top: 185px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.label-price-select {
+  color: white;
+  font-family: "Pacifico", cursive;
+  font-size: 30px;
+}
+
+.price-input {
+  width: 200px;
+  height: 30px;
+  text-align: center;
+  font-weight: bolder;
+  font-size: 16px;
 }
 
 /* Mixins */

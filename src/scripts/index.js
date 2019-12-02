@@ -25,7 +25,7 @@ function hideNavOnScroll() {
 
 const ul = document.getElementById("hotels");
 const url =
-  "http://fake-hotel-api.herokuapp.com/api/hotels?count=10&no_error=true&min_stars=3";
+  "http://fake-hotel-api.herokuapp.com/api/hotels?count=50&no_error=true&min_stars=3";
 const urlReviews = "http://fake-hotel-api.herokuapp.com/api/reviews?hotel_id=";
 
 function fetchData() {
@@ -223,16 +223,30 @@ function save(array) {
   let starSelect = document.getElementById("star-select");
   let selection = starSelect.options[starSelect.selectedIndex].value;
 
+  let priceInput = document.getElementById("price-input");
+  let priceSelection = priceInput.value;
+
   let editFilters = document.getElementById("editFilters");
   editFilters.style.cssText = "display:none";
 
+  let stars;
   if (selection === "") {
     return final[0];
   } else {
-    let stars = final[0].filter(element => {
+    stars = final[0].filter(element => {
       return element.stars === parseInt(selection);
     });
-    return stars;
+  }
+
+  if (priceSelection === "") {
+    if (selection != "") {
+      return stars;
+    }
+  } else {
+    let price = stars.filter(element => {
+      return element.price > parseInt(priceSelection);
+    });
+    return price;
   }
 }
 
