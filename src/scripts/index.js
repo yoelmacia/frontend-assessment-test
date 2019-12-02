@@ -44,7 +44,9 @@ function fetchData() {
           img = createNodeWithClass("img", "image"),
           hr = createNodeWithClass("hr", "hr"),
           hrPrice = createNodeWithClass("hr", "hrPrice"),
-          reviews = createNodeWithClass("button", "reviewsButton");
+          reviews = createNodeWithClass("button", "reviewsButton"),
+          closeReviews = createNodeWithClass("button", "closeReviews"),
+          modalReviews = createNodeWithClass("li", "modal-reviews");
 
         divName.innerHTML = `${hotel.name}`;
         divStars.innerHTML = `${
@@ -70,6 +72,33 @@ function fetchData() {
               reviews.innerHTML = `No Reviews`;
             } else {
               reviews.innerHTML = `Read Reviews (${response.data.length})`;
+              // If the client click the review button show the modal and hide the normal view
+              reviews.addEventListener("click", function() {
+                hotelReviews(hotel, response.data, modalReviews, closeReviews);
+
+                modalReviews.style.cssText = "display:block;position:relative;";
+                img.style.cssText = "display:none;";
+                divName.style.cssText = "display:none;";
+                divStars.style.cssText = "display:none;";
+                divCity.style.cssText = "display:none;";
+                hr.style.cssText = "display:none;";
+                divPrice.style.cssText = "display:none;";
+                hrPrice.style.cssText = "display:none;";
+                reviews.style.cssText = "display:none;";
+
+                // If the client click the x button close the modal and show the normal view
+                closeReviews.addEventListener("click", function() {
+                  modalReviews.style.cssText = "display:none;";
+                  img.style.cssText = "display:block;";
+                  divName.style.cssText = "display:block;";
+                  divStars.style.cssText = "display:block;";
+                  divCity.style.cssText = "display:block;";
+                  hr.style.cssText = "display:block;";
+                  divPrice.style.cssText = "display:block;";
+                  hrPrice.style.cssText = "display:block;";
+                  reviews.style.cssText = "display:block;";
+                });
+              });
             }
           })
           .catch(error => {
@@ -82,6 +111,7 @@ function fetchData() {
             "https://www.altayyaronline.com/contentserver/commons/hotel/en/not-found.png";
         };
 
+        append(li, modalReviews);
         append(li, img);
         append(li, divName);
         append(li, divStars);
@@ -105,4 +135,38 @@ showMore.addEventListener("click", moreHotels);
 
 function moreHotels() {
   fetchData();
+}
+
+function hotelReviews(hotel, reviews, modal, closeElement) {
+  closeElement.innerHTML = `X`;
+  append(modal, closeElement);
+
+  if (hotel.id === reviews[0].hotel_id) {
+    // elements of the modal
+    let NumberOfreviews = createNodeWithClass("div", "numberReviews"),
+      hrAfterNumber = createNodeWithClass("hr", "hrAfterNumber");
+
+    NumberOfreviews.innerHTML = `Reviews ${reviews.length}`;
+    append(modal, NumberOfreviews);
+    checkReview = true;
+    append(modal, hrAfterNumber);
+    reviews.map(review => {
+      let nameReviewer = createNodeWithClass("div", "nameReviewer"),
+        comment = createNodeWithClass("div", "comment"),
+        positive = createNodeWithClass("div", "positive"),
+        hrComment = createNodeWithClass("hr", "hrComment");
+
+      nameReviewer.innerHTML = `&#9787; ${review.name}`;
+      comment.innerHTML = `&#9998; ${review.comment}`;
+      positive.innerHTML = `Positive review: ${
+        review.positive === true ? `&check;` : `&cross;`
+      }`;
+      append(modal, nameReviewer);
+      append(modal, comment);
+      append(modal, positive);
+      append(modal, hrComment);
+    });
+
+    console.log(hotel, reviews, modal);
+  }
 }
